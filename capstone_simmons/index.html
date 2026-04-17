@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life After Service</title>
+
+<!-- ===============================
+GOOGLE FONTS (fixed)
+- Black Ops One: stencil display font for headings
+- Inter: clean, readable body font
+=============================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+1) RESET
+========================================================= */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+/* =========================================================
+2) DESIGN TOKENS (Veteran / military-inspired palette)
+========================================================= */
+:root {
+--navy: #0b1d3a; /* Deep navy — primary brand color */
+--navy-dark: #07132a; /* Darker navy — header + footer */
+--red: #c8102e; /* Strong red — accents + buttons */
+--red-dark: #8a0a1f; /* Hover red */
+--gold: #d4a017; /* Medal-gold accent */
+--cream: #f6f1e7; /* Warm cream background */
+--panel: #ffffff; /* Card surface */
+--text: #1a1a1a; /* Main text */
+--muted: #4a4a4a; /* Secondary text */
+--border: rgba(0,0,0,0.08);
+--shadow: 0 12px 28px rgba(11,29,58,0.12);
+--radius: 14px;
+
+--font-display: 'Black Ops One', Impact, sans-serif;
+--font-body: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* =========================================================
+3) PAGE BASE
+========================================================= */
+body {
+font-family: var(--font-body);
+background: var(--cream);
+color: var(--text);
+line-height: 1.6;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+}
+
+h1, h2, h3,
+.logo,
+.stat-number {
+font-family: var(--font-display);
+letter-spacing: 1px;
+text-transform: uppercase;
+}
+
+/* =========================================================
+4) CONTAINER
+========================================================= */
+.container {
+max-width: 1100px;
+margin: 0 auto;
+padding: 0 32px;
+}
+
+/* =========================================================
+5) HEADER / NAV
+========================================================= */
+.site-header {
+background: var(--navy-dark);
+padding: 14px 0;
+box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+border-bottom: 3px solid var(--gold);
+}
+
+.nav-bar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 16px;
+flex-wrap: wrap;
+}
+
+.logo {
+color: #fff;
+text-decoration: none;
+font-size: 1.4rem;
+padding: 6px 10px;
+border-radius: 8px;
+display: inline-flex;
+align-items: center;
+gap: 10px;
+}
+.logo::before {
+content: "★";
+color: var(--gold);
+font-size: 1.2rem;
+}
+.logo:hover {
+background: rgba(255,255,255,0.08);
+}
+
+.nav-toggle {
+display: none;
+background: transparent;
+border: 2px solid rgba(255,255,255,0.85);
+color: #fff;
+padding: 8px 12px;
+border-radius: 8px;
+font-family: var(--font-display);
+letter-spacing: 1px;
+cursor: pointer;
+}
+
+.nav-links {
+list-style: none;
+display: flex;
+align-items: center;
+gap: 8px;
+flex-wrap: wrap;
+}
+
+.nav-links a {
+color: #fff;
+text-decoration: none;
+font-weight: 600;
+padding: 8px 16px;
+border-radius: 8px;
+transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-links a:hover {
+background: var(--red);
+color: #fff;
+}
+
+.nav-links a.active {
+background: var(--red);
+color: #fff;
+}
+
+/* =========================================================
+6) MAIN
+========================================================= */
+main { flex: 1; }
+
+/* =========================================================
+7) HERO
+========================================================= */
+.hero {
+position: relative;
+min-height: 75vh;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+color: #fff;
+background: url("/images/joshua-hoehne-X4YSBIsSl9s-unsplash.jpg") center/cover no-repeat;
+overflow: hidden;
+}
+
+/* Darker gradient overlay for better contrast + drama */
+.hero::before {
+content: "";
+position: absolute;
+inset: 0;
+background: linear-gradient(
+135deg,
+rgba(7,19,42,0.85) 0%,
+rgba(11,29,58,0.65) 50%,
+rgba(200,16,46,0.55) 100%
+);
+z-index: 1;
+}
+
+.hero-content {
+position: relative;
+z-index: 2;
+max-width: 70ch;
+padding: 0 20px;
+animation: fadeUp 1s ease-out;
+}
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+display: inline-block;
+font-family: var(--font-display);
+color: var(--gold);
+font-size: 0.9rem;
+letter-spacing: 3px;
+margin-bottom: 12px;
+padding: 6px 16px;
+border: 2px solid var(--gold);
+border-radius: 4px;
+}
+
+.hero h1 {
+font-size: clamp(2.4rem, 6vw, 4.4rem);
+line-height: 1.05;
+margin-bottom: 18px;
+text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+.hero p {
+font-size: clamp(1.05rem, 2vw, 1.3rem);
+color: rgba(255,255,255,0.95);
+margin-bottom: 28px;
+font-weight: 400;
+}
+
+/* =========================================================
+BUTTON
+========================================================= */
+.btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+padding: 14px 28px;
+border-radius: 8px;
+background: var(--red);
+color: #fff;
+text-decoration: none;
+font-family: var(--font-display);
+letter-spacing: 2px;
+font-size: 0.95rem;
+transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+box-shadow: 0 6px 16px rgba(200,16,46,0.35);
+}
+.btn:hover {
+background: var(--red-dark);
+transform: translateY(-2px);
+box-shadow: 0 10px 22px rgba(200,16,46,0.45);
+}
+.btn--outline {
+background: transparent;
+border: 2px solid #fff;
+box-shadow: none;
+}
+.btn--outline:hover {
+background: #fff;
+color: var(--navy-dark);
+}
+
+/* =========================================================
+8) STATS STRIP (new — adds weight and purpose)
+========================================================= */
+.stats {
+background: var(--navy);
+color: #fff;
+padding: 40px 0;
+}
+.stats-row {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+gap: 20px;
+text-align: center;
+}
+.stat-number {
+font-size: 2.6rem;
+color: var(--gold);
+display: block;
+line-height: 1;
+margin-bottom: 8px;
+}
+.stat-label {
+font-size: 0.95rem;
+color: rgba(255,255,255,0.8);
+letter-spacing: 1px;
+text-transform: uppercase;
+}
+
+/* =========================================================
+9) SERVICE CARDS
+========================================================= */
+.section {
+padding: 80px 0;
+}
+.section-header {
+text-align: center;
+margin-bottom: 40px;
+}
+.section h2 {
+font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+color: var(--navy-dark);
+margin-bottom: 12px;
+}
+.section h2::after {
+content: "";
+display: block;
+width: 80px;
+height: 4px;
+background: var(--red);
+margin: 14px auto 0;
+}
+.section .desc {
+color: var(--muted);
+max-width: 60ch;
+margin: 0 auto;
+font-size: 1.05rem;
+}
+
+.card-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 28px;
+}
+
+.card {
+background: var(--panel);
+border-radius: var(--radius);
+box-shadow: var(--shadow);
+overflow: hidden;
+display: flex;
+flex-direction: column;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+border-top: 4px solid var(--red);
+}
+.card:hover {
+transform: translateY(-8px);
+box-shadow: 0 22px 44px rgba(11,29,58,0.2);
+}
+
+.card-img-wrap {
+overflow: hidden;
+height: 210px;
+}
+.card img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.6s ease;
+}
+.card:hover img {
+transform: scale(1.08);
+}
+
+.card-content {
+padding: 24px;
+display: flex;
+flex-direction: column;
+gap: 12px;
+flex: 1;
+}
+.card-content h3 {
+font-size: 1.4rem;
+color: var(--navy-dark);
+}
+.card-content p {
+color: var(--muted);
+flex: 1;
+}
+.card .btn {
+align-self: flex-start;
+font-size: 0.85rem;
+padding: 12px 22px;
+}
+
+/* =========================================================
+10) CALL TO ACTION BAND
+========================================================= */
+.cta-band {
+background:
+linear-gradient(rgba(7,19,42,0.85), rgba(7,19,42,0.85)),
+url("/images/joshua-hoehne-X4YSBIsSl9s-unsplash.jpg") center/cover no-repeat;
+color: #fff;
+padding: 70px 0;
+text-align: center;
+border-top: 3px solid var(--gold);
+border-bottom: 3px solid var(--gold);
+}
+.cta-band h2 {
+font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+margin-bottom: 14px;
+}
+.cta-band p {
+max-width: 55ch;
+margin: 0 auto 24px;
+font-size: 1.05rem;
+color: rgba(255,255,255,0.9);
+}
+
+/* =========================================================
+11) FOOTER
+========================================================= */
+footer {
+background: var(--navy-dark);
+color: #fff;
+padding: 36px 0;
+border-top: 3px solid var(--gold);
+}
+.footer-row {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 16px;
+flex-wrap: wrap;
+}
+.footer-row p {
+color: rgba(255,255,255,0.8);
+font-size: 0.9rem;
+}
+.footer-links {
+display: flex;
+gap: 22px;
+flex-wrap: wrap;
+}
+.footer-links a {
+color: #fff;
+text-decoration: none;
+font-weight: 600;
+font-size: 0.9rem;
+transition: color 0.2s ease;
+}
+.footer-links a:hover {
+color: var(--gold);
+}
+
+/* =========================================================
+12) RESPONSIVE
+========================================================= */
+@media (max-width: 768px) {
+.nav-toggle {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+}
+nav { width: 100%; }
+
+.nav-links {
+display: none;
+flex-direction: column;
+align-items: stretch;
+gap: 6px;
+margin-top: 12px;
+background: rgba(255,255,255,0.05);
+padding: 12px;
+border-radius: 10px;
+}
+.nav-links.open { display: flex; }
+.nav-links a { width: 100%; }
+
+.hero { min-height: 65vh; }
+.section { padding: 60px 0; }
+
+.footer-row {
+flex-direction: column;
+align-items: center;
+text-align: center;
+}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===================== HEADER / NAV ===================== -->
+<header class="site-header">
+<div class="container nav-bar">
+<a class="logo" href="index.html">Life After Service</a>
+
+<button
+class="nav-toggle"
+id="navToggle"
+aria-controls="primaryNav"
+aria-expanded="false"
+type="button">
+Menu ☰
+</button>
+
+<nav aria-label="Main navigation">
+<ul class="nav-links" id="primaryNav">
+<li><a class="active" href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="projects.html">Projects</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+<!-- ===================== MAIN ===================== -->
+<main>
+
+<!-- HERO -->
+<section class="hero" aria-label="Hero section">
+<div class="hero-content">
+<span class="hero-eyebrow">Honor · Support · Transition</span>
+<h1>Life After Service</h1>
+<p>Supporting our Veterans as they transition into civilian life — with counseling, therapy, and crisis resources built by people who understand the mission.</p>
+<a class="btn" href="#explore">Explore Services</a>
+<a class="btn btn--outline" href="#contact" style="margin-left:10px;">Get Help Now</a>
+</div>
+</section>
+
+
+<!-- SERVICES -->
+<section class="section" id="explore">
+<div class="container">
+<div class="section-header">
+<h2>Our Services</h2>
+<p class="desc">Counseling to help you find your next career, therapy for PTSD and grief, and a crisis line for the moments that matter most.</p>
+</div>
+
+<div class="card-grid">
+
+<article class="card">
+<div class="card-img-wrap">
+<img src="images/pexels-mizunokozuki-12903341.jpg" alt="A career counselor helping someone applying to jobs on the computer.">
+</div>
+<div class="card-content">
+<h3>Counseling</h3>
+<p>Need guidance on your next career path? Our counselors help you chart a course and walk beside you through every step of the journey.</p>
+<a class="btn" href="#">Find a Counselor</a>
+</div>
+</article>
+
+<article class="card">
+<div class="card-img-wrap">
+<img src="images/pexels-polina-tankilevitch-5234585.jpg" alt="A psychologist talking to a patient lying on the couch.">
+</div>
+<div class="card-content">
+<h3>Therapy</h3>
+<p>Our licensed therapists specialize in PTSD, grief, and the unique challenges Veterans face. You served us — let us serve you.</p>
+<a class="btn" href="#">Find a Therapist</a>
+</div>
+</article>
+
+<article class="card">
+<div class="card-img-wrap">
+<img src="/images/stressed-man-sitting-hopelessly-with-cracked-glass-effect.jpg" alt="A man in a moment of crisis">
+</div>
+<div class="card-content">
+<h3>Crisis Support</h3>
+<p>If you or someone you love is in crisis, help is available around the clock. You are not alone, and your next call could save a life.</p>
+<a class="btn" href="#">Get Help Now</a>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<!-- CALL TO ACTION -->
+<section class="cta-band" id="contact">
+<div class="container">
+<h2>You Served. Now Let Us Serve You.</h2>
+<p>Whether you need someone to talk to, a path forward, or immediate support — we're here. Reach out today and take the next step.</p>
+<a class="btn" href="#">Contact Us</a>
+</div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+<div class="container footer-row">
+<p>&copy; 2026 Angel Simmons. All rights reserved.</p>
+<div class="footer-links" aria-label="Footer links">
+<a href="about.html">About</a>
+<a href="projects.html">Projects</a>
+<a href="contact.html">Contact</a>
+<a href="#">Privacy</a>
+</div>
+</div>
+</footer>
+
+<!-- ===================== MOBILE MENU SCRIPT ===================== -->
+<script>
+const btn = document.getElementById("navToggle");
+const nav = document.getElementById("primaryNav");
+btn.addEventListener("click", () => {
+nav.classList.toggle("open");
+const isOpen = nav.classList.contains("open");
+btn.setAttribute("aria-expanded", isOpen);
+});
+</script>
+
+</body>
+</html>
+  
